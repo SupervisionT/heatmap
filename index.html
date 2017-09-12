@@ -18,7 +18,7 @@
 <div id="map"></div>
 
 <script src="leaflet-heat.js"></script>
-<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
 <script>
 
 var map = L.map('map').setView([21.546336, 72.990182], 9);
@@ -32,27 +32,82 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 var heat;
 var zzz;
 var url = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-20.csv'
-d3.csv(url, function(data) {
-  var speed = data.map(function(c){ return Number(c.ground_speed) })
-  var max = d3.max(speed, function(d) {return d })
-  var min = d3.min(speed, function(d) {return d })
-  var scale = d3.scale.linear()
-                    .domain([min, max])
-                    .range([max, min]);
-  zzz = data.map((x) => {
-    return [Number(x.latitude), Number(x.longitude), scale(Number(x.ground_speed))]
-  })
-  var bounds = new L.LatLngBounds(zzz);
-  map.fitBounds(bounds);
-  var options= {
-                maxZoom: 18,
-                radius: 20,
-                blur: 15,
-                max: 1.0
-                // gradient: {0.4: 'blue', 0.65: 'lime', 1: 'red'}
-                }
-  heat = L.heatLayer(zzz, options).addTo(map);
+var url2 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-21.csv'
+var url3 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-22.csv'
+var url4 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-23.csv'
+var url5 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-24.csv'
+var url6 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-25.csv'
+var url7 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-26.csv'
+var url8 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-27.csv'
+var url9 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-28.csv'
+d3.queue()
+.defer(d3.csv, url)
+.defer(d3.csv, url2)
+.defer(d3.csv, url3)
+.defer(d3.csv, url4)
+.defer(d3.csv, url5)
+.defer(d3.csv, url6)
+.defer(d3.csv, url7)
+.defer(d3.csv, url8)
+.defer(d3.csv, url9)
+.await(function(error, file1, file2, file3, file4, file5, file6, file7, file8, file9) {
+    if (error) {
+        console.error('Oh dear, something went wrong: ' + error);
+    }
+    else {
+      file1 = file1.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      file2 = file2.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      file3 = file3.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      file4 = file4.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      file5 = file5.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      file6 = file6.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      file7 = file7.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      file8 = file8.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      file9 = file9.map((x) => {return [Number(x.latitude), Number(x.longitude), Number(x.ground_speed)]})
+      var allFiles = file1.concat(file2, file3, file4, file5, file6, file7, file8, file9);
+      var speed = allFiles.map(function(c){ return c[2] })
+      var max = d3.max(speed, function(d) {return d })
+      var min = d3.min(speed, function(d) {return d })
+      console.log('max', max, 'min', min);
+      var scale = d3.scaleLinear()
+                        .domain([min, max])
+                        .range([max, min]);
+      zzz = allFiles.map((x) => {
+        return [x[0], x[1], scale(x[2])]
+      })
+      var bounds = new L.LatLngBounds(zzz);
+      map.fitBounds(bounds);
+      var options= {
+                    maxZoom: 18,
+                    radius: 20,
+                    blur: 35,
+                    max: 1.0
+                    // gradient: {0.4: 'blue', 0.65: 'lime', 1: 'red'}
+                    }
+      heat = L.heatLayer(zzz, options).addTo(map);
+    }
 });
+// d3.csv(url, function(data) {
+//   var speed = data.map(function(c){ return Number(c.ground_speed) })
+//   var max = d3.max(speed, function(d) {return d })
+//   var min = d3.min(speed, function(d) {return d })
+//   var scale = d3.scaleLinear()
+//                     .domain([min, max])
+//                     .range([max, min]);
+//   zzz = data.map((x) => {
+//     return [Number(x.latitude), Number(x.longitude), scale(Number(x.ground_speed))]
+//   })
+//   var bounds = new L.LatLngBounds(zzz);
+//   map.fitBounds(bounds);
+//   var options= {
+//                 maxZoom: 18,
+//                 radius: 20,
+//                 blur: 15,
+//                 max: 1.0
+//                 // gradient: {0.4: 'blue', 0.65: 'lime', 1: 'red'}
+//                 }
+//   heat = L.heatLayer(zzz, options).addTo(map);
+// });
 </script>
 </body>
 </html>
