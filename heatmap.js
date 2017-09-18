@@ -9,15 +9,15 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 var group = L.featureGroup().addTo(map);
 var heat = new L.heatLayer();
 var heatData;
-var url = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-20.csv'
-var url2 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-21.csv'
-var url3 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-22.csv'
-var url4 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-23.csv'
-var url5 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-24.csv'
-var url6 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-25.csv'
-var url7 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-26.csv'
-var url8 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-27.csv'
-var url9 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/vikqxm6%202017-06-28.csv'
+var url = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-20.csv'
+var url2 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-21.csv'
+var url3 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-22.csv'
+var url4 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-23.csv'
+var url5 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-24.csv'
+var url6 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-25.csv'
+var url7 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-26.csv'
+var url8 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-27.csv'
+var url9 = 'https://raw.githubusercontent.com/SupervisionT/heatmap/master/res/vikqxm6%202017-06-28.csv'
 d3.queue()
 .defer(d3.csv, url)
 .defer(d3.csv, url2)
